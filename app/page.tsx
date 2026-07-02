@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { colors } from "../lib/colors";
 
 export default function Home() {
+  const [search, setSearch] = useState("");
 
   const categories = [
     "🏢 建筑涂装",
@@ -30,7 +32,19 @@ export default function Home() {
 
       {/* Search */}
       <div style={{ marginTop: 20 }}>
-        <input
+        <<input
+  placeholder="搜索色卡 / RAL / GB / 应用场景..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  style={{
+    width: "100%",
+    padding: 12,
+    borderRadius: 8,
+    border: "1px solid #333",
+    background: "#111827",
+    color: "white"
+  }}
+/>
           placeholder="搜索色卡 / RAL / GB / 应用场景..."
           style={{
             width: "100%",
@@ -74,7 +88,13 @@ export default function Home() {
         gridTemplateColumns: "repeat(3, 1fr)",
         gap: 15
       }}>
-        {colors.map((color) => (
+        {colors
+  .filter((color) =>
+    color.name.toLowerCase().includes(search.toLowerCase()) ||
+    color.id.toLowerCase().includes(search.toLowerCase()) ||
+    color.category.toLowerCase().includes(search.toLowerCase())
+  )
+  .map((color) => (
           <div
             key={color.id}
             style={{
