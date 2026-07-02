@@ -17,6 +17,7 @@ export default function Home() {
 
   const filteredColors = colors.filter((color) => {
     const s = search.toLowerCase();
+
     return (
       color.name.toLowerCase().includes(s) ||
       color.id.toLowerCase().includes(s) ||
@@ -33,7 +34,6 @@ export default function Home() {
         padding: "40px",
       }}
     >
-      {/* Header */}
       <h1 style={{ fontSize: 32, fontWeight: "bold" }}>
         🎨 工业AI色卡系统
       </h1>
@@ -42,7 +42,7 @@ export default function Home() {
         Industrial Paint Color SaaS Dashboard
       </p>
 
-      {/* Search */}
+      {/* 搜索框 */}
       <div style={{ marginTop: 20 }}>
         <input
           placeholder="搜索色卡 / RAL / GB / 应用场景..."
@@ -59,7 +59,7 @@ export default function Home() {
         />
       </div>
 
-      {/* Categories */}
+      {/* 分类 */}
       <h2 style={{ marginTop: 30 }}>📦 应用场景</h2>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
@@ -77,7 +77,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Colors */}
+      {/* 色卡 */}
       <h2 style={{ marginTop: 40 }}>🎨 RAL 色卡库</h2>
 
       {filteredColors.length === 0 ? (
