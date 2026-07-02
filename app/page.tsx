@@ -1,12 +1,6 @@
+import { colors } from "../lib/colors";
+
 export default function Home() {
-  const colors = [
-    { name: "RAL 5005 蓝", hex: "#0057B7" },
-    { name: "RAL 3020 红", hex: "#D52B1E" },
-    { name: "RAL 1023 黄", hex: "#F2C200" },
-    { name: "RAL 6005 绿", hex: "#0B3D2E" },
-    { name: "RAL 9005 黑", hex: "#0A0A0A" },
-    { name: "RAL 9016 白", hex: "#F5F5F5" },
-  ];
 
   const categories = [
     "🏢 建筑涂装",
@@ -18,12 +12,18 @@ export default function Home() {
   ];
 
   return (
-    <div style={{ background: "#0b0f19", minHeight: "100vh", color: "white", padding: "40px" }}>
-      
+    <div style={{
+      background: "#0b0f19",
+      minHeight: "100vh",
+      color: "white",
+      padding: "40px"
+    }}>
+
       {/* Header */}
       <h1 style={{ fontSize: 32, fontWeight: "bold" }}>
         🎨 工业AI色卡系统
       </h1>
+
       <p style={{ color: "#aaa" }}>
         Industrial Paint Color SaaS Dashboard
       </p>
@@ -45,7 +45,12 @@ export default function Home() {
 
       {/* Categories */}
       <h2 style={{ marginTop: 30 }}>📦 应用场景</h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+
+      <div style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 10
+      }}>
         {categories.map((c, i) => (
           <div
             key={i}
@@ -62,11 +67,16 @@ export default function Home() {
       </div>
 
       {/* Color Cards */}
-      <h2 style={{ marginTop: 40 }}>🎨 RAL 色卡库</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 15 }}>
-        {colors.map((color, i) => (
+      <h2 style={{ marginTop: 40 }}>🎨 RAL 色卡库（数据库版）</h2>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: 15
+      }}>
+        {colors.map((color) => (
           <div
-            key={i}
+            key={color.id}
             style={{
               background: "#111827",
               padding: 15,
@@ -74,14 +84,25 @@ export default function Home() {
               border: "1px solid #222"
             }}
           >
-            <div
-              style={{
-                height: 60,
-                borderRadius: 6,
-                background: color.hex
-              }}
-            />
-            <p style={{ marginTop: 10 }}>{color.name}</p>
+
+            <div style={{
+              height: 60,
+              borderRadius: 6,
+              background: color.hex
+            }} />
+
+            <p style={{ marginTop: 10 }}>
+              {color.name}
+            </p>
+
+            <p style={{ fontSize: 12, color: "#777" }}>
+              {color.id}
+            </p>
+
+            <p style={{ fontSize: 12, color: "#555" }}>
+              {color.category}
+            </p>
+
           </div>
         ))}
       </div>
