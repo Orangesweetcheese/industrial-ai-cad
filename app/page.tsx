@@ -6,7 +6,16 @@ import { colors } from "../lib/colors";
 export default function Home() {
   const [search, setSearch] = useState("");
 
-  // ✅ 稳定搜索（工业级写法）
+  const categories = [
+    "🏢 建筑涂装",
+    "🚧 工业设备",
+    "🌉 桥梁工程",
+    "⚙️ 机械制造",
+    "🏭 工厂环境",
+    "🧱 地坪系统",
+  ];
+
+  // 🔍 搜索逻辑（工业级统一搜索）
   const filteredColors = colors.filter((color) => {
     const s = search.trim().toLowerCase();
 
@@ -22,66 +31,114 @@ export default function Home() {
   });
 
   return (
-    <div style={{ background: "#0b0f19", minHeight: "100vh", color: "white", padding: 40 }}>
-      
-      {/* 标题 */}
-      <h1>🎨 工业AI色卡系统</h1>
+    <div
+      style={{
+        background: "#0b0f19",
+        minHeight: "100vh",
+        color: "white",
+        padding: "40px",
+      }}
+    >
+      {/* ===== 标题 ===== */}
+      <h1 style={{ fontSize: 32, fontWeight: "bold" }}>
+        🎨 工业AI色卡系统
+      </h1>
 
-      {/* 搜索框 */}
-      <input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="搜索：工厂 / 工业 / RAL / 桥梁..."
-        style={{
-          width: "100%",
-          marginTop: 20,
-          padding: 12,
-          borderRadius: 8,
-          border: "1px solid #333",
-          background: "#111827",
-          color: "white",
-        }}
-      />
+      <p style={{ color: "#aaa" }}>
+        Industrial Paint Color SaaS Dashboard
+      </p>
 
-      {/* 结果区 */}
-      <div
-        style={{
-          marginTop: 30,
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 15,
-        }}
-      >
-        {filteredColors.length === 0 ? (
-          <p>没有找到匹配结果</p>
-        ) : (
-          filteredColors.map((color) => (
-            <div
+      {/* ===== 搜索 ===== */}
+      <div style={{ marginTop: 20 }}>
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="搜索：工厂 / 桥梁 / RAL / 工业设备..."
+          style={{
+            width: "100%",
+            padding: 12,
+            borderRadius: 8,
+            border: "1px solid #333",
+            background: "#111827",
+            color: "white",
+          }}
+        />
+      </div>
+
+      {/* ===== 分类 ===== */}
+      <h2 style={{ marginTop: 30 }}>📦 应用场景</h2>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+        {categories.map((c, i) => (
+          <div
+            key={i}
+            style={{
+              padding: "10px 14px",
+              background: "#1f2937",
+              borderRadius: 8,
+              cursor: "pointer",
+              fontSize: 14,
+            }}
+          >
+            {c}
+          </div>
+        ))}
+      </div>
+
+      {/* ===== 色卡列表 ===== */}
+      <h2 style={{ marginTop: 40 }}>🎨 RAL 色卡库</h2>
+
+      {filteredColors.length === 0 ? (
+        <p style={{ color: "#888" }}>没有找到匹配的色卡</p>
+      ) : (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 15,
+          }}
+        >
+          {filteredColors.map((color) => (
+            <a
               key={color.id}
+              href={`/id/${color.id}`}
               style={{
-                background: "#111827",
-                padding: 15,
-                borderRadius: 10,
-                border: "1px solid #222",
+                textDecoration: "none",
+                color: "inherit",
               }}
             >
               <div
                 style={{
-                  height: 60,
-                  borderRadius: 6,
-                  background: color.hex,
+                  background: "#111827",
+                  padding: 15,
+                  borderRadius: 10,
+                  border: "1px solid #222",
+                  cursor: "pointer",
+                  transition: "0.2s",
                 }}
-              />
+              >
+                {/* 色块 */}
+                <div
+                  style={{
+                    height: 60,
+                    borderRadius: 6,
+                    background: color.hex,
+                  }}
+                />
 
-              <p>{color.name}</p>
-              <p style={{ fontSize: 12, color: "#777" }}>{color.id}</p>
-              <p style={{ fontSize: 12, color: "#555" }}>
-                {color.category}
-              </p>
-            </div>
-          ))
-        )}
-      </div>
+                {/* 信息 */}
+                <p style={{ marginTop: 10 }}>{color.name}</p>
+                <p style={{ fontSize: 12, color: "#777" }}>
+                  {color.id}
+                </p>
+                <p style={{ fontSize: 12, color: "#555" }}>
+                  {color.category}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
