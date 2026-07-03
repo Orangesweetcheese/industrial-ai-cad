@@ -101,7 +101,7 @@ export default function Home() {
           {filteredColors.map((color) => (
             <a
               key={color.id}
-              href={`/color/${color.id.toLowerCase()}`}
+              href={`/${color.id.toLowerCase()}`}
               style={{
                 textDecoration: "none",
                 color: "inherit",
